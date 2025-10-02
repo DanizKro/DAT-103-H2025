@@ -1,0 +1,13 @@
+#!/bin/bash
+read -p "Input the name of the file to be processed: " filename
+# Skriver ut
+echo "You entered: $filename"
+
+# Eksempel på videre bruk: sjekke om filen finnes
+if [ -f "$filename" ]; then
+    echo "The file '$filename' exists and will be processed."
+else
+    echo "The file '$filename' does not exist."
+fi
+
+
