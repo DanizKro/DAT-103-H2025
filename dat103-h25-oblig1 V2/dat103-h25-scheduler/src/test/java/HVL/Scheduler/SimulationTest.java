@@ -146,7 +146,7 @@ public class SimulationTest {
             return state;
 	    }).limit(34).collect(Collectors.toList());
 
-	// Subtask 2(b): Write out expected view for 31 steps of Round Robin scheduling
+	// Subtask 2(b): Write out expected view for 34 steps of Preemptive SJF scheduling
 	// Assert Test 2
         assertThat(steps2,contains(        
 				   
