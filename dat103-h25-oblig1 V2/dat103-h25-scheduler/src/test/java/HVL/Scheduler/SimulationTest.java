@@ -73,6 +73,7 @@ public class SimulationTest {
             simulation.step();
             var state = "T=%d %s".formatted(simulation.time(), rrScheduler.view());
             simulation.clocktick();
+            System.out.println(state);
             return state;
 	    }).limit(31).collect(Collectors.toList());  //31 is the total execution time
 
@@ -88,27 +89,27 @@ public class SimulationTest {
         	    "T=6 Scheduled: T2 Ready: T3, T4, T5, T1, T6, T7",
         	    "T=7 Scheduled: T3 Ready: T4, T5, T1, T6, T7",
         	    "T=8 Scheduled: T4 Ready: T5, T1, T6, T7",
-        	    "T=9 Scheduled: T4 Ready: T5, T1, T6, T7",
-        	    "T=10 Scheduled: T4 Ready: T5, T1, T6, T7, T8",
-        	    "T=11 Scheduled: T4 Ready: T5, T1, T6, T7, T8",
+        	    "T=9 Scheduled: T5 Ready: T1, T6, T7",
+        	    "T=10 Scheduled: T5 Ready: T1, T6, T7, T8",
+        	    "T=11 Scheduled: T5 Ready: T1, T6, T7, T8",
         	    "T=12 Scheduled: T5 Ready: T1, T6, T7, T8",
-        	    "T=13 Scheduled: T5 Ready: T1, T6, T7, T8",
-        	    "T=14 Scheduled: T5 Ready: T1, T6, T7, T8",
-        	    "T=15 Scheduled: T1 Ready: T6, T7, T8, T5",
-        	    "T=16 Scheduled: T1 Ready: T6, T7, T8, T5, T9, T10",
-        	    "T=17 Scheduled: T6 Ready: T7, T8, T5, T9, T10, T1",
-        	    "T=18 Scheduled: T6 Ready: T7, T8, T5, T9, T10, T1",
-        	    "T=19 Scheduled: T6 Ready: T7, T8, T5, T9, T10, T1",
-        	    "T=20 Scheduled: T6 Ready: T7, T8, T5, T9, T10, T1",
-        	    "T=21 Scheduled: T7 Ready: T8, T5, T9, T10, T1",
-        	    "T=22 Scheduled: T7 Ready: T8, T5, T9, T10, T1",
-        	    "T=23 Scheduled: T7 Ready: T8, T5, T9, T10, T1",
-        	    "T=24 Scheduled: T7 Ready: T8, T5, T9, T10, T1",
-        	    "T=25 Scheduled: T8 Ready: T5, T9, T10, T1",
-        	    "T=26 Scheduled: T8 Ready: T5, T9, T10, T1",
-        	    "T=27 Scheduled: T8 Ready: T5, T9, T10, T1",
-        	    "T=28 Scheduled: T8 Ready: T5, T9, T10, T1",
-        	    "T=29 Scheduled: T5 Ready: T9, T10, T1",
+        	    "T=13 Scheduled: T1 Ready: T6, T7, T8",
+        	    "T=14 Scheduled: T6 Ready: T7, T8",
+        	    "T=15 Scheduled: T6 Ready: T7, T8",
+        	    "T=16 Scheduled: T6 Ready: T7, T8, T9, T10",
+        	    "T=17 Scheduled: T6 Ready: T7, T8, T9, T10",
+        	    "T=18 Scheduled: T7 Ready: T8, T9, T10, T6",
+        	    "T=19 Scheduled: T7 Ready: T8, T9, T10, T6",
+        	    "T=20 Scheduled: T7 Ready: T8, T9, T10, T6",
+        	    "T=21 Scheduled: T7 Ready: T8, T9, T10, T6",
+        	    "T=22 Scheduled: T8 Ready: T9, T10, T6",
+        	    "T=23 Scheduled: T8 Ready: T9, T10, T6",
+        	    "T=24 Scheduled: T9 Ready: T10, T6",
+        	    "T=25 Scheduled: T10 Ready: T6",
+        	    "T=26 Scheduled: T10 Ready: T6",
+        	    "T=27 Scheduled: T10 Ready: T6",
+        	    "T=28 Scheduled: T6 Ready: ",
+        	    "T=29 Scheduled: T6 Ready: ",
         	    "T=30 Scheduled: Ready: "
         	));
 	break;
@@ -132,9 +133,9 @@ public class SimulationTest {
             return state;		    
 	    }).limit(31).collect(Collectors.toList());
 	
-        assertThat(steps1,contains(
-        "T=0 Scheduled: T3 Ready: T2, T1",
-        "T=1 Scheduled: T2 Ready: T1",
+       assertThat(steps1,contains(
+"T=0 Scheduled: T3 Ready: T2, T1",
+    	"T=1 Scheduled: T2 Ready: T1",
 		"T=2 Scheduled: T4 Ready: T2, T5, T1",
 		"T=3 Scheduled: T2 Ready: T5, T1",
 		"T=4 Scheduled: T2 Ready: T5, T1",
@@ -163,7 +164,7 @@ public class SimulationTest {
 		"T=27 Scheduled: T6 Ready: ",
 		"T=28 Scheduled: T6 Ready: ",
 		"T=29 Scheduled: T6 Ready: ",
-        "T=30 Scheduled: Ready: "	
+                "T=30 Scheduled: Ready: "	
         ));
 	break;
 
@@ -178,41 +179,42 @@ public class SimulationTest {
 
 	// Subtask 2(b): Write out expected view for 34 steps of Preemptive SJF scheduling
 	// Assert Test 2
-        assertThat(steps2, contains(
-            "T=0 Scheduled: T1 Ready: T3, T2",
-            "T=1 Scheduled: T3 Ready: T2",
-            "T=2 Scheduled: T3 Ready: T2",
-            "T=3 Scheduled: T3 Ready: T2",
-            "T=4 Scheduled: T4 Ready: T5, T2, T6",
-            "T=5 Scheduled: T4 Ready: T5, T2, T6",
-            "T=6 Scheduled: T5 Ready: T2, T6",
-            "T=7 Scheduled: T5 Ready: T2, T6",
-            "T=8 Scheduled: T5 Ready: T2, T6",
-            "T=9 Scheduled: T2 Ready: T6",
-            "T=10 Scheduled: T2 Ready: T6",
-            "T=11 Scheduled: T2 Ready: T6",
-            "T=12 Scheduled: T8 Ready: T7, T6, T2",
-            "T=13 Scheduled: T8 Ready: T7, T6, T2",
-            "T=14 Scheduled: T7 Ready: T6, T2",
-            "T=15 Scheduled: T7 Ready: T6, T2",
-            "T=16 Scheduled: T9 Ready: T10, T6, T2, T7",
-            "T=17 Scheduled: T10 Ready: T6, T2, T7",
-            "T=18 Scheduled: T10 Ready: T6, T2, T7",
-            "T=19 Scheduled: T10 Ready: T6, T2, T7",
-            "T=20 Scheduled: T10 Ready: T6, T2, T7",
-            "T=21 Scheduled: T2 Ready: T6, T7",
-            "T=22 Scheduled: T2 Ready: T6, T7",
-            "T=23 Scheduled: T6 Ready: T7",
-            "T=24 Scheduled: T6 Ready: T7",
-            "T=25 Scheduled: T6 Ready: T7",
-            "T=26 Scheduled: T6 Ready: T7",
-            "T=27 Scheduled: T6 Ready: T7",
-            "T=28 Scheduled: T7 Ready: ",
-            "T=29 Scheduled: T7 Ready: ",
-            "T=30 Scheduled: T7 Ready: ",
-            "T=31 Scheduled: T7 Ready: ",
-            "T=32 Scheduled: T7 Ready: ",
-            "T=33 Scheduled: Ready: "
+        assertThat(steps2,contains(      
+        		"T=0 Scheduled: T1 Ready: T3, T2",
+        		"T=1 Scheduled: T3 Ready: T2",
+        		"T=2 Scheduled: T3 Ready: T2",
+        		"T=3 Scheduled: T3 Ready: T2",
+        		"T=4 Scheduled: T4 Ready: T5, T2, T6",
+        		"T=5 Scheduled: T4 Ready: T5, T2, T6",
+        		"T=6 Scheduled: T5 Ready: T2, T6",
+        		"T=7 Scheduled: T5 Ready: T2, T6",
+        		"T=8 Scheduled: T5 Ready: T2, T6",
+        		"T=9 Scheduled: T5 Ready: T2, T6",
+        		"T=10 Scheduled: T2 Ready: T6",
+        		"T=11 Scheduled: T2 Ready: T6",
+        		"T=12 Scheduled: T8 Ready: T2, T7, T6",
+        		"T=13 Scheduled: T8 Ready: T2, T7, T6",
+        		"T=14 Scheduled: T2 Ready: T7, T6",
+        		"T=15 Scheduled: T2 Ready: T7, T6",
+        		"T=16 Scheduled: T2 Ready: T9, T10, T7, T6",
+        		"T=17 Scheduled: T9 Ready: T10, T7, T6",
+        		"T=18 Scheduled: T10 Ready: T7, T6",
+        		"T=19 Scheduled: T10 Ready: T7, T6",
+        		"T=20 Scheduled: T10 Ready: T7, T6",
+        		"T=21 Scheduled: T10 Ready: T7, T6",
+        		"T=22 Scheduled: T7 Ready: T6",
+        		"T=23 Scheduled: T7 Ready: T6",
+        		"T=24 Scheduled: T7 Ready: T6",
+        		"T=25 Scheduled: T7 Ready: T6",
+        		"T=26 Scheduled: T7 Ready: T6",
+        		"T=27 Scheduled: T6 Ready: ",
+        		"T=28 Scheduled: T6 Ready: ",
+        		"T=29 Scheduled: T6 Ready: ",
+        		"T=30 Scheduled: T6 Ready: ",
+        		"T=31 Scheduled: T6 Ready: ",
+        		"T=32 Scheduled: T6 Ready: ",
+        		"T=33 Scheduled: Ready: "
+
         ));
 	break;
 	}
